@@ -114,6 +114,13 @@ class Settings(BaseSettings):
     # ==================== Cerebras Inference (OpenAI-compatible) ====================
     cerebras_api_key: str = Field(default="", validation_alias="CEREBRAS_API_KEY")
 
+    # ==================== FreeLLMAPI (OpenAI-compatible local proxy) ====================
+    freellmapi_api_key: str = Field(default="", validation_alias="FREETHEMIND_API_KEY")
+    freellmapi_base_url: str = Field(
+        default="http://localhost:3001/v1",
+        validation_alias="FREELLMAPI_BASE_URL",
+    )
+
     # ==================== Messaging Platform Selection ====================
     # Valid: "telegram" | "discord" | "none"
     messaging_platform: str = Field(

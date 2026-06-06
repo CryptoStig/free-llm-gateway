@@ -36,6 +36,7 @@ ZAI_DEFAULT_BASE = "https://api.z.ai/api/anthropic/v1"
 GEMINI_DEFAULT_BASE = "https://generativelanguage.googleapis.com/v1beta/openai/"
 GROQ_DEFAULT_BASE = "https://api.groq.com/openai/v1"
 CEREBRAS_DEFAULT_BASE = "https://api.cerebras.ai/v1"
+FREETHEMIND_DEFAULT_BASE = "http://localhost:3001/v1"
 
 
 @dataclass(frozen=True, slots=True)
@@ -245,6 +246,16 @@ PROVIDER_CATALOG: dict[str, ProviderDescriptor] = {
             "native_anthropic",
             "local",
         ),
+    ),
+    "freellmapi": ProviderDescriptor(
+        provider_id="freellmapi",
+        transport_type="openai_chat",
+        credential_env="FREETHEMIND_API_KEY",
+        credential_url=None,
+        credential_attr="freellmapi_api_key",
+        default_base_url=FREETHEMIND_DEFAULT_BASE,
+        base_url_attr="freellmapi_base_url",
+        capabilities=("chat", "streaming", "tools", "thinking", "rate_limit", "local"),
     ),
 }
 

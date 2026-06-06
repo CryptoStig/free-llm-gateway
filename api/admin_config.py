@@ -252,6 +252,26 @@ FIELDS: tuple[ConfigFieldSpec, ...] = (
         ),
     ),
     ConfigFieldSpec(
+        "FREETHEMIND_API_KEY",
+        "FreeLLMAPI API Key",
+        "providers",
+        "secret",
+        settings_attr="freellmapi_api_key",
+        secret=True,
+        description=(
+            "FreeLLMAPI unified API key (local proxy at http://localhost:3001/v1). "
+            "Aggregates 99+ free-tier models across 16 providers. "
+            "Retrieve with: curl http://localhost:3001/api/settings/api-key"
+        ),
+    ),
+    ConfigFieldSpec(
+        "FREELLMAPI_BASE_URL",
+        "FreeLLMAPI Base URL",
+        "providers",
+        settings_attr="freellmapi_base_url",
+        default="http://localhost:3001/v1",
+    ),
+    ConfigFieldSpec(
         "LM_STUDIO_BASE_URL",
         "LM Studio Base URL",
         "providers",
