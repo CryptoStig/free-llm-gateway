@@ -43,7 +43,7 @@ Free Claude Code routes Anthropic Messages API traffic from Claude Code to any p
 ## What You Get
 
 - Drop-in proxy for Claude Code's Anthropic API calls.
-- 17 provider backends: NVIDIA NIM, OpenRouter, Google AI Studio (Gemini), DeepSeek, Mistral La Plateforme, Mistral Codestral, OpenCode Zen, OpenCode Go, Wafer, Kimi, Cerebras Inference, Groq, Fireworks AI, Z.ai, LM Studio, llama.cpp, and Ollama.
+- 18 provider backends: NVIDIA NIM, OpenRouter, Google AI Studio (Gemini), DeepSeek, Mistral La Plateforme, Mistral Codestral, OpenCode Zen, OpenCode Go, Wafer, Kimi, Cerebras Inference, Groq, Fireworks AI, Z.ai, LM Studio, llama.cpp, Ollama, and FreeLLMAPI.
 - Per-model routing: send Opus, Sonnet, Haiku, and fallback traffic to different providers.
 - Native Claude Code `/model` picker support through the proxy's `/v1/models` endpoint (see [Model Picker](#model-picker)).
 - Streaming, tool use, reasoning/thinking block handling, and local request optimizations.
@@ -304,7 +304,29 @@ In the Admin UI, keep or update `OLLAMA_BASE_URL`, then set `MODEL` to the same 
 
 `OLLAMA_BASE_URL` is the Ollama server root; do not append `/v1`. Example model slugs include `ollama/llama3.1` and `ollama/llama3.1:8b`.
 
-### 18. Mix Providers By Model Tier
+### 18. [FreeLLMAPI](https://github.com/CryptoStig/free-llm-gateway) (local proxy)
+
+FreeLLMAPI is a self-hosted OpenAI-compatible proxy that aggregates 99+ free-tier models across 16 providers into a single endpoint at `http://localhost:3001/v1`. It is part of the Hermes Agent ecosystem.
+
+The gateway uses the FreeLLMAPI unified API key for authentication. Retrieve it from the FreeLLMAPI dashboard or database:
+
+```bash
+curl -s http://localhost:3001/api/settings/api-key \
+  -H "Authorization: Bearer <session_token>"
+```
+
+In the Admin UI, paste the key into `FREETHEMIND_API_KEY`, then set `MODEL` to a FreeLLMAPI model slug such as `freellmapi/auto` (auto-routes to best available) or a specific model like `freellmapi/llama-3.3-70b-versatile`.
+
+Popular examples:
+
+- `freellmapi/auto` — auto-route to best available model
+- `freellmapi/llama-3.3-70b-versatile`
+- `freellmapi/gemini-2.5-flash`
+- `freellmapi/deepseek-chat`
+
+Browse available models via the FreeLLMAPI `/v1/models` endpoint.
+
+### 19. Mix Providers By Model Tier
 
 Each model tier can use a different provider by setting `MODEL_OPUS`, `MODEL_SONNET`, and `MODEL_HAIKU` in the Admin UI. Leave a tier blank to inherit `MODEL`.
 
